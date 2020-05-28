@@ -108,13 +108,13 @@ class Erome:
             """Filenames are declared here"""
 
             title = nameCorrector(post['postTitle'])
-            print(post["postSubmitter"]+"_"+title+"_"+post['postId']+extension)
+            print("Erome: " + str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId']+extension)
 
             fileDir = directory / (
-                post["postSubmitter"]+"_"+title+"_"+post['postId']+extension
+                str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId']+extension
             )
             tempDir = directory / (
-                post["postSubmitter"]+"_"+title+"_"+post['postId']+".tmp"
+                str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId']+".tmp"
             )
 
             imageURL = IMAGES[0]
@@ -130,10 +130,10 @@ class Erome:
 
         else:
             title = nameCorrector(post['postTitle'])
-            print(post["postSubmitter"]+"_"+title+"_"+post['postId'],end="\n\n")
+            print("Erome: " + str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId'],end="\n\n")
 
             folderDir = directory / (
-                post["postSubmitter"] + "_" + title + "_" + post['postId']
+                str(GLOBAL.picNumber) + "_" + post["postSubmitter"] + "_" + title + "_" + post['postId']
             )
 
             try:
@@ -251,17 +251,19 @@ class Imgur:
 
             """Filenames are declared here"""
 
-            print(post["postSubmitter"]+"_"+title+"_"+post['postId']+post['postExt'])
+            print('Imgur image: ' + str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId']+post['postExt'])
 
             fileDir = directory / (
-                post["postSubmitter"]
+                str(GLOBAL.picNumber)
+                + "_" + post["postSubmitter"]
                 + "_" + title
                 + "_" + post['postId'] 
                 + post['postExt']
             )
 
             tempDir = directory / (
-                post["postSubmitter"]
+                str(GLOBAL.picNumber)
+                + "_" + post["postSubmitter"]
                 + "_" + title 
                 + "_" + post['postId'] 
                 + ".tmp"
@@ -282,10 +284,10 @@ class Imgur:
             duplicates = 0
 
             title = nameCorrector(post['postTitle'])
-            print(post["postSubmitter"]+"_"+title+"_"+post['postId'],end="\n\n")
+            print("Imgur album: " + str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId'],end="\n\n")
 
             folderDir = directory / (
-                post["postSubmitter"] + "_" + title + "_" + post['postId']
+                str(GLOBAL.picNumber) + "_" + post["postSubmitter"] + "_" + title + "_" + post['postId']
             )
 
             try:
@@ -412,21 +414,21 @@ class Gfycat:
             raise NotADownloadableLinkError("Could not read the page source")
 
         POST['postExt'] = getExtension(POST['mediaURL'])
-        
+
         if not os.path.exists(directory): os.makedirs(directory)
         title = nameCorrector(POST['postTitle'])
 
         """Filenames are declared here"""
 
-        print(POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt'])
+        print("Gfycat: " + str(GLOBAL.picNumber) + "_" + POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt'])
 
         fileDir = directory / (
-            POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt']
+            str(GLOBAL.picNumber) + "_" + POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt']
         )
         tempDir = directory / (
-            POST["postSubmitter"]+"_"+title+"_"+POST['postId']+".tmp"
+            str(GLOBAL.picNumber) + "_" + POST["postSubmitter"]+"_"+title+"_"+POST['postId']+".tmp"
         )
-        
+
         try:
             getFile(fileDir,tempDir,POST['mediaURL'])
         except FileNameTooLong:
@@ -434,7 +436,7 @@ class Gfycat:
             tempDir = directory / (POST['postId']+".tmp")
 
             getFile(fileDir,tempDir,POST['mediaURL'])
-      
+
     def getLink(self, url, query='<source id="mp4Source" src=', lineNumber=105):
         """Extract direct link to the video from page's source
         and return it
@@ -467,13 +469,13 @@ class Direct:
 
         """Filenames are declared here"""
 
-        print(POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt'])
+        print('Direct: ' + str(GLOBAL.picNumber) + "_" + POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt'])
 
         fileDir = directory / (
-            POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt']
+            str(GLOBAL.picNumber) + "_" + POST["postSubmitter"]+"_"+title+"_"+POST['postId']+POST['postExt']
         )
         tempDir = directory / (
-            POST["postSubmitter"]+"_"+title+"_"+POST['postId']+".tmp"
+            str(GLOBAL.picNumber) + "_" + POST["postSubmitter"]+"_"+title+"_"+POST['postId']+".tmp"
         )
 
         try:
@@ -492,10 +494,10 @@ class Self:
 
         """Filenames are declared here"""
 
-        print(post["postSubmitter"]+"_"+title+"_"+post['postId']+".md")
+        print("Self: " + str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId']+".md")
 
         fileDir = directory / (
-            post["postSubmitter"]+"_"+title+"_"+post['postId']+".md"
+            str(GLOBAL.picNumber) + "_" + post["postSubmitter"]+"_"+title+"_"+post['postId']+".md"
         )
         
         if Path.is_file(fileDir):

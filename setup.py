@@ -1,5 +1,3 @@
-#!C:\Users\Ali\AppData\Local\Programs\Python\Python36\python.exe
-
 ## python setup.py build
 import sys
 from cx_Freeze import setup, Executable

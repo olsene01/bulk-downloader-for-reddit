@@ -14,6 +14,7 @@ class GLOBAL:
     config = None
     arguments = None
     directory = None
+    picNumber = 0
     defaultConfigDirectory = Path.home() / "Bulk Downloader for Reddit"
     configDirectory = ""
     reddit_client_id = "BSyphDdxYZAgVQ"

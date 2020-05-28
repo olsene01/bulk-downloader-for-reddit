@@ -568,6 +568,7 @@ def download(submissions):
     FAILED_FILE = createLogFile("FAILED")
 
     for i in range(subsLenght):
+        GLOBAL.picNumber = i+1
         print(f"\n({i+1}/{subsLenght}) – r/{submissions[i]['postSubreddit']}",
               end="")
         print(f" – {submissions[i]['postType'].upper()}",end="",noPrint=True)
