@@ -35,12 +35,12 @@ def beginPraw(config,user_agent = str(socket.gethostname())):
             server.close()
             return client
 
-        def send_message(self, message):
+        def send_message(self, client, message):
             """Send message to client and close the connection."""
-            self.client.send(
+            client.send(
                 'HTTP/1.1 200 OK\r\n\r\n{}'.format(message).encode('utf-8')
             )
-            self.client.close()
+            client.close()
 
         def getRefreshToken(self,*scopes):
             state = str(random.randint(0, 65000))
@@ -48,8 +48,8 @@ def beginPraw(config,user_agent = str(socket.gethostname())):
             print("Go to this URL and login to reddit:\n\n",url)
             webbrowser.open(url,new=2)
 
-            self.client = self.recieve_connection()
-            data = self.client.recv(1024).decode('utf-8')
+            client = self.recieve_connection()
+            data = client.recv(1024).decode('utf-8')
             str(data)
             param_tokens = data.split(' ', 2)[1].split('?', 1)[1].split('&')
             params = {
@@ -67,7 +67,7 @@ def beginPraw(config,user_agent = str(socket.gethostname())):
                 raise RedditLoginFailed
             
             refresh_token = self.redditInstance.auth.authorize(params['code'])
-            self.send_message(
+            self.send_message(client,
                 "<script>" \
                 "alert(\"You can go back to terminal window now.\");" \
                 "</script>"
@@ -299,6 +299,8 @@ def redditSearcher(posts,SINGLE_POST=False):
     orderCount = 0
     global gfycatCount
     gfycatCount = 0
+    global redgifsCount
+    redgifsCount = 0
     global imgurCount
     imgurCount = 0
     global eromeCount
@@ -394,6 +396,7 @@ def redditSearcher(posts,SINGLE_POST=False):
 
 def checkIfMatching(submission):
     global gfycatCount
+    global redgifsCount
     global imgurCount
     global eromeCount
     global directCount
@@ -422,6 +425,11 @@ def checkIfMatching(submission):
     elif 'erome' in submission.domain:
         details['postType'] = 'erome'
         eromeCount += 1
+        return details
+
+    elif 'redgifs' in submission.domain:
+        details['postType'] = 'redgifs'
+        redgifsCount += 1
         return details
 
     elif submission.is_self:
@@ -495,7 +503,7 @@ def isDirectLink(URL):
             return False
 
     for extension in imageTypes:
-        if extension in URL:
+        if extension in URL.split("/")[-1]:
             return URL
     else:
         return False
