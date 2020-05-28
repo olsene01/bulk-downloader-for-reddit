@@ -14,12 +14,11 @@ import webbrowser
 from io import StringIO
 from pathlib import Path, PurePath
 
-from src.downloaders.Direct import Direct
-from src.downloaders.Erome import Erome
-from src.downloaders.Gfycat import Gfycat 
-from src.downloaders.Imgur import Imgur 
-from src.downloaders.Self import Self
-
+from src.downloaders.direct import Direct
+from src.downloaders.erome import Erome
+from src.downloaders.gfycat import Gfycat
+from src.downloaders.imgur import Imgur
+from src.downloaders.selfPost import SelfPost
 from src.errors import *
 from src.parser import LinkDesigner
 from src.searcher import getPosts
@@ -501,7 +500,7 @@ def downloadPost(SUBMISSION):
     global lastRequestTime
 
     downloaders = {
-        "imgur":Imgur,"gfycat":Gfycat,"erome":Erome,"direct":Direct,"self":Self
+        "imgur":Imgur,"gfycat":Gfycat,"erome":Erome,"direct":Direct,"self":SelfPost
     }
 
     print()
@@ -537,7 +536,7 @@ def downloadPost(SUBMISSION):
             if not (credit['UserRemaining'] == 0 or \
                     credit['ClientRemaining'] == 0):
 
-                """This block of code is needed
+                """This block of code is needed for API workaround
                 """
                 while int(time.time() - lastRequestTime) <= 2:
                     pass
@@ -573,7 +572,7 @@ def download(submissions):
     FAILED_FILE = createLogFile("FAILED")
 
     for i in range(subsLenght):
-        print(f"\n({i+1}/{subsLenght}) – r/{submissions[i]['postSubreddit']}",
+        print(f"\n({i+1}/{subsLenght}) – {submissions[i]['postId']} – r/{submissions[i]['postSubreddit']}",
               end="")
         print(f" – {submissions[i]['postType'].upper()}",end="",noPrint=True)
 

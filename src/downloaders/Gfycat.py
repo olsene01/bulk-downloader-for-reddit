@@ -15,10 +15,6 @@ class Gfycat:
             POST['mediaURL'] = self.getLink(POST['postURL'])
         except IndexError:
             raise NotADownloadableLinkError("Could not read the page source")
-        except Exception as exception:
-            #debug
-            raise exception
-            raise NotADownloadableLinkError("Could not read the page source")
 
         POST['postExt'] = getExtension(POST['mediaURL'])
         

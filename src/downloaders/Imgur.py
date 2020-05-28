@@ -55,7 +55,6 @@ class Imgur:
                 getFile(fileDir,tempDir,post['mediaURL'])
 
         elif content['type'] == 'album':
-            exceptionType = ""
             images = content['object'].images
             imagesLenght = len(images)
             howManyDownloaded = imagesLenght
@@ -129,7 +128,6 @@ class Imgur:
                         )
                         + "\n"
                     )
-                    exceptionType = exception
                     howManyDownloaded -= 1
 
             if duplicates == imagesLenght:
@@ -153,7 +151,6 @@ class Imgur:
         and determine if its a single image or album
         """
 
-        domainLenght = len("imgur.com/")
         if submissionURL[-1] == "/":
             submissionURL = submissionURL[:-1]
 

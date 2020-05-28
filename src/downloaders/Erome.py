@@ -97,7 +97,6 @@ class Erome:
                         )
                         + "\n"
                     )
-                    exceptionType = exception
                     howManyDownloaded -= 1
 
             if duplicates == imagesLenght:

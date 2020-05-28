@@ -8,7 +8,7 @@ from src.utils import nameCorrector
 VanillaPrint = print
 from src.utils import printToFile as print
 
-class Self:
+class SelfPost:
     def __init__(self,directory,post):
         if not os.path.exists(directory): os.makedirs(directory)
 
